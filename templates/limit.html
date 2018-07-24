@@ -1,40 +1,5 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>限定字取名</title>
-    <meta charset="utf-8">
-    <!-- <meta name='viewport' content="with=device-width,initial-scale = 1,user-scalable=no"> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" type="text/css" href="static/style.css">
-    <!-- 包含 bootstrap 样式表 -->
-    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">	
-</head>
-
-<body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-	    <div class="container">
-		    <div class="navbar-header">
-			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>                        
-			  </button>			
-			  <a href="#" class="navbar-brand">古诗文起名V1.0</a>
-			</div>
-			<div class="collapse navbar-collapse"  id="myNavbar">				 
-			  <ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="/" id="name-selected-btn">随机</a></li>
-				<li><a href="/limit" id="name-selected-btn">限定</a></li>
-				<li><a href="#"  id="name-selected-btn">当前已选<span class="badge">0</span></a></li>
-				<li><a href="#"  id="all-selected-btn">全部已选<span class="badge">0</span></a></li>
-			  </ul>
-			</div>		
-		</div>
-
-	</nav>
-	
-    <div class="wrapper container">
+{% extends "layout.html" %}
+{% block content %}
         <h3>你的名字</h3>
 		<form>
           
@@ -94,12 +59,5 @@
 			 </tbody>
 		   </table>
 		   <div id="message-box"></div>
-		 </div>
-    </div>
-    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-    <!-- 可选: 合并了 Bootstrap JavaScript 插件 -->
-    <script src="https://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>	
-    <script src="static/namer.js"></script>
-</body>
-
-</html>
+		</div>
+{% endblock %}
