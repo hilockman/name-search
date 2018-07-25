@@ -46,13 +46,14 @@ def limit():
 	
 @app.route('/allnames')
 def allNames():
+    print("name_count= %d" % len(all_names))
     return render_template('allnames.html', name_count=len(all_names), name_list=all_names)	
 		
 @app.route('/name',methods=['POST'])
 def addName() :
     content = request.json
-    print(content)
-    print('titile:'+content['title'])
+    #print(content)
+    #print('titile:'+content['title'])
     saveName(content)
     return 'test'
 
@@ -61,11 +62,16 @@ def saveName(nameObj) :
     #nameObj = json.loads(nameString)
     global fout
     #fout.writerow(['name', 'title', 'book', 'sentence', 'author','dynasty'])	  
-    fout.writerow([str(nameObj['familyName'])+str(nameObj['name']), str(nameObj['title']), str(nameObj['sentence']), str(nameObj['author']), str(nameObj['dynasty'])])
+    title = ['name', 'title', 'book', 'sentence', 'author']
+    obj = {title[i]:str(nameObj[title[i]]) for i in range(len(title))}
+    obj['name'] = str(nameObj['familyName'])+str(nameObj['name'])
+    fout.writerow([obj[title[i]] for i in range(len(title))])
     global outfile
     outfile.flush()	
     global all_names
-    all_names.extend(nameObj)
+    obj['index']=len(all_names)
+    all_names.extend([obj])
+    print("Succeed to save name : count = %d" % len(all_names))
 	
 def loadNames(fpath) :	  
     with open(fpath, 'r', newline='', encoding='utf-8-sig') as csvfile:
