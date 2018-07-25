@@ -16,10 +16,10 @@
 		   {% for name in name_list %}
 		   <tr>
 		      <td>{{name.index}}</td>
-			  <td>{{name.familyName}}{{name.name}}</td>
+			  <td>{{name.name}}</td>
 			  <td>{{name.sentence}}</td>
 			  <td>{{name.book}}•{{name.title}}</td>
-			  <td>[{{name.dynasty}}]{{name.author}}</td>
+			  <td>{{name.dynasty}}{{name.author}}</td>
 		   </tr>
 		   {% endfor %}
 		 </tbody>
