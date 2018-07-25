@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h3>已选的名字总数：{{name_count}}</h3>
+	<div class="table-responsive" id="nameTable">          
+	   <table class="table table-striped table-bordered">
+		 <thead>
+		   <tr>
+			 <th>序号</th>
+			 <th>姓名</th>
+			 <th>诗句</th>
+			 <th>书</th>
+			 <th>作者</th>
+		   </tr>
+		 </thead>
+		 <tbody>
+		   {% for name in name_list %}
+		   <tr>
+		      <td>{{name.index}}</td>
+			  <td>{{name.familyName}}{{name.name}}</td>
+			  <td>{{name.sentence}}</td>
+			  <td>{{name.book}}•{{name.title}}</td>
+			  <td>[{{name.dynasty}}]{{name.author}}</td>
+		   </tr>
+		   {% endfor %}
+		 </tbody>
+	   </table>
+	   <div id="message-box" hidden></div>
+	</div>
+	<script>
+	   
+	</script>
+{% endblock %}
+
+
