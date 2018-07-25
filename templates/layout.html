@@ -27,21 +27,22 @@
 				<li class="active"><a href="/" id="name-selected-btn">随机</a></li>
 				<li><a href="/limit" id="name-selected-btn">限定</a></li>
 				<li><a href="#"  id="name-selected-btn">当前已选<span class="badge">0</span></a></li>
-				<li><a href="#"  id="all-selected-btn">全部已选<span class="badge">0</span></a></li>
+				<li><a href="/allnames"  id="all-selected-btn">全部已选<span class="badge">{{name_count}}</span></a></li>
 				<li><a href="#"  id="all-selected-btn">友情链接</a></li>
 			  </ul>
 			</div>		
 		</div>
 
 	</nav>
-    <div class="wrapper container">
-        {% block content %}
-        {% endblock %}
-    </div>
     <script src="http://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <!-- 可选: 合并了 Bootstrap JavaScript 插件 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
     <script src="static/namer.js"></script>
+    <div class="wrapper container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
 </body>
 
 </html>

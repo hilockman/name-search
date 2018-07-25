@@ -125,8 +125,8 @@ function refreshName(searchOpt) {
 	
 	var jsonFilename = 'static/'+$('select[name="src-select"]').val();
 	selectedNameObjs = [];
-	allNameObjs = [];
-	var nameSet = new Set();
+	nameList = [];
+	nameSet = new Set();
 	var policy = $('select[name="select-strategy"]').val();
 	var limit = $('input[name="limit-name"]').val();
 	if (typeof limit !== 'undefined') 
@@ -165,7 +165,7 @@ function refreshName(searchOpt) {
 			
 			
 			
-			var html = filter(dataArr, num, allNameObjs, policy, limit);
+			var html = filter(dataArr, num, nameList, policy, limit);
 			if (html.length == 0) {
 				showMessage("Find no record.");
 			} else {
@@ -174,22 +174,9 @@ function refreshName(searchOpt) {
 			$('tbody').html(html);
 			
 			$('.name').on('click', function(event) {
-			  $(this).parent().addClass('active').siblings().removeClass('active');
-			  var btn = $("#name-selected-btn span");
-			  
-			  //btn.html(parseInt(btn.html())+1);
-			  var name = $(this).html();
-			  if (nameSet.has(name))
-				  return;
-			  
-			  nameSet.add(name);
-			  btn.html(nameSet.size);
-			  var index = parseInt($(this).parent().attr("id"));
-			  			  
-			  addName(allNameObjs[index]);
-			  
-			  $("#all-selected-btn span").html(nameSet.size);
-			  
+				var cell = $(this);
+			  	var index = parseInt(cell.parent().attr("id"));							  
+				addName(cell, nameList[index]);
 			});
 
 		},
@@ -207,14 +194,25 @@ function showMessage(msg) {
 		$('#message-box').show().html('<p style="text-align:center">'+msg+'<p>');
 }
 
-function addName(nameObj) {
+function addName(cell, nameObj) {
 	$.ajax({
 				url : "/name",
 				type : "POST",
 				data : JSON.stringify(nameObj),
 				contentType: "application/json; charset=utf-8",
 				success : function(msg) {
-					
+				  cell.parent().addClass('active').siblings().removeClass('active');
+				  var btn = $("#name-selected-btn span");
+				  
+				  var name = cell.html();
+				  if (nameSet.has(name))
+					  return;
+				  
+				  nameSet.add(name);
+				  btn.html(nameSet.size);
+
+				  var allNameSize = parseInt($("#all-selected-btn span").html())
+				  $("#all-selected-btn span").html(allNameSize+1);
 						
 				},
 				error : function(err) {
@@ -525,6 +523,23 @@ var selectPolicies = {
 '6' : randCharFromStr1,
 '7' : tailCharFromStr1,
 }
+
+var default_proc = {
+	'poemArrayPoc': function(poemArray) {
+		               return genRandPoem(poemArray);
+	                },
+    'poemProc':     function (poem) {
+	                   return splitSentence(poem.content);
+                    }
+}
+
+var select_policies = {
+  'tail' : { 
+              'name' : 'tail',
+			  'desc' : '末尾',
+           },
+}
+
 
 /*
 function genLimitName(randPoem, policy, limit) {
